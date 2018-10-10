@@ -11,9 +11,10 @@ def getData(file):
 #the keys are from the first row in the data. and the values are each of the other rows
 	inFile = open(file, 'r')
 	fileList = inFile.readlines()
-	keys = fileList[0].split(",")
+	keys = fileList[0].rstrip().split(",")
 	outData = []
 	for line in fileList[1:]:
+		line = line.strip('\n')
 		valueList = line.split(",")
 		tempDict = {}
 		for key in keys:
@@ -53,7 +54,7 @@ def findMonth(a):
 # Output: Return the month (1-12) that had the most births in the data
 	monthDict = {}
 	for x in a:
-		month = x['DOB\n'].split('/')[0]
+		month = x['DOB'].split('/')[0]
 		if month in monthDict:
 			monthDict[month] += 1
 		else:
@@ -81,7 +82,7 @@ def findAge(a):
 # age in years.
 	cumAge = 0
 	for x in a:
-		year = int(x['DOB\n'].split('/')[2])
+		year = int(x['DOB'].split('/')[2])
 		cumAge += 2018 - year
 	avgAge = int(cumAge / len(a))
 	return avgAge
